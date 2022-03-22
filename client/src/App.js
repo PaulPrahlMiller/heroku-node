@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState('');
+  const [item, setItem] = useState('Initial state');
 
   useEffect(() => {
     const fetchFromApi = async () => {
@@ -13,10 +14,16 @@ function App() {
     fetchFromApi();
   }, [message]);
 
+  const handleClick = () => {
+    setItem('Updated state');
+  };
+
   return (
     <div className='App'>
       <h1>React App</h1>
       <h2>{message}</h2>
+      <h3>State: {item}</h3>
+      <button onClick={handleClick}>Update state</button>
     </div>
   );
 }
