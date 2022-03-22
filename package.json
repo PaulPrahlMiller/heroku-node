@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node index.js",
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon server\" \"npm run client\""
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"nodemon server\" \"npm run client\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [
     "MERN"
@@ -21,5 +24,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "16.13.2"
   }
 }
