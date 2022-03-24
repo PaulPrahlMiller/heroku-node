@@ -1,11 +1,28 @@
 const express = require('express');
+const mongoSanitize = require('express-mongo-sanitize');
+const bodyParser = require('body-parser');
 const apiRouter = require('./routes/api');
+const cors = require('cors');
 
 // Initialise the application
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Allow cross origin
+app.use(cors());
+
+// Sanitize input for mongoDB
+app.use(
+  mongoSanitize({
+    replaceWith: '_',
+    onSanitize: ({ req, key }) => {
+      console.warn(`This request[${key}] is sanitized`, req);
+    }
+  })
+);
 
 // API routes
 app.use('/api', apiRouter);
